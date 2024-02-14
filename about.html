@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Details</title>
+<style>
+     body {
+            font-family: Arial, sans-serif;
+            background-image: url('user.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color:black;
+        }
+    .container {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        }
+    label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: black;
+        }
+
+label.required::after {
+            content: " *";
+            color: red; /* Red color for asterisk */
+        }
+
+    input[type="text"], input[type="tel"], input[type="date"], input[type="email"], select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="checkbox"] {
+        width: 15px;
+        height: 15px;
+        margin: 12px;
+    }
+
+    .checkbox-group label {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>User Details</h2>
+    <form id="userDetailsForm">
+        <label class="required" for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name (First and Last)" required>
+
+        <label class="required" for="dateOfBirth">Date of Birth:</label>
+        <input type="date" id="dateOfBirth" name="dateOfBirth" onchange="calculateAge()" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" placeholder="Your age will be calculated automatically" readonly>
+
+        <label class="required" for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="" disabled selected>Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label class="required" for="email">Email ID:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+
+        <label class="required" for="contactInfo">Contact Information:</label>
+        <input type="tel" id="contactInfo" name="contactInfo" pattern="[0-9]{10}" placeholder="Enter your phone number (10 digits)" required>
+
+        <div class="checkbox-group">
+            <label class="required">Preferred Language of Communication:</label><br>
+            <input type="checkbox" name="communicationLanguage" value="English"> English
+            <input type="checkbox" name="communicationLanguage" value="Hindi"> Hindi
+            <input type="checkbox" name="communicationLanguage" value="Marathi"> Marathi
+        </div>
+
+        <label for="address">Current Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter your current address">
+
+        <label for="languagesKnown">Languages Spoken Fluently:</label>
+        <input type="text" id="languagesKnown" name="languagesKnown" placeholder="Enter languages you speak fluently">
+
+        <label for="motherTongue">Mother Tongue or Native Language:</label>
+        <input type="text" id="motherTongue" name="motherTongue" placeholder="Enter your mother tongue or native language">
+
+        <label for="hobbiesInterests">Hobbies/Interests:</label>
+        <input type="text" id="hobbiesInterests" name="hobbiesInterests" placeholder="Enter your hobbies or interests">
+
+        <label for="pets">Pets (If any):</label>
+        <input type="text" id="pets" name="pets" placeholder="Enter details about your pets">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+// JavaScript code to handle form submission and calculate age
+document.getElementById("userDetailsForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get form values
+    var userDetails = {
+        fullName: document.getElementById("fullName").value,
+        dateOfBirth: document.getElementById("dateOfBirth").value,
+        age: document.getElementById("age").value,
+        gender: document.getElementById("gender").value,
+        email: document.getElementById("email").value,
+        contactInfo: document.getElementById("contactInfo").value,
+        communicationLanguage: getCheckboxValues("communicationLanguage"),
+        address: document.getElementById("address").value,
+        languagesKnown: document.getElementById("languagesKnown").value,
+        motherTongue: document.getElementById("motherTongue").value,
+        hobbiesInterests: document.getElementById("hobbiesInterests").value,
+        pets: document.getElementById("pets").value
+    };
+
+    // Validate email format using a regular expression
+    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(userDetails.email)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    // Convert the object to JSON string
+    var userDetailsJSON = JSON.stringify(userDetails);
+
+    // Store the JSON string in local storage
+    localStorage.setItem("userDetails", userDetailsJSON);
+
+    // Redirect to the next page
+    window.location.href = "interest.html";
+});
+
+
+    // Function to get values of checked checkboxes
+    function getCheckboxValues(checkboxName) {
+        var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked');
+        var values = [];
+        checkboxes.forEach(function(checkbox) {
+            values.push(checkbox.value);
+        });
+        return values.join(", ");
+    }
+
+    // Function to calculate age based on date of birth
+    function calculateAge() {
+        var dob = new Date(document.getElementById("dateOfBirth").value);
+        var today = new Date();
+        var age = today.getFullYear() - dob.getFullYear();
+        var m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        document.getElementById("age").value = age;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education Details</title>
+<style>
+     body {
+            font-family: Arial, sans-serif;
+            background-image: url('education.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color:black;
+        }
+    .container {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        }
+    label {
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: black;
+        }
+
+label.required::after {
+            content: " *";
+            color: red; /* Red color for asterisk */
+        }
+    input[type="text"], select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+input[type="radio"] {
+    display: inline-block;
+	margin-right: 5px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Education Details</h2>
+    <form id="userEducationDetailsForm">
+
+        <label class="required" for="educationlevel">Highest Level of Education:</label>
+        <select id="educationLevel" name="educationLevel" required>
+            <option value="" disabled selected>Select your highest education level</option>
+            <option value="SSC">SSC</option>
+            <option value="HSC">HSC</option>
+            <option value="Undergraduate">Undergraduate</option>
+	        <option value="Postgraduate">Postgraduate</option>
+	        <option value="Diploma">Diploma</option>
+        </select>
+
+
+        <label for="schoolName">Name of School or Institution Attended:</label>
+        <input type="text" id="schoolName" name="schoolName" placeholder="Enter the name of your school or institution">
+
+        <label class="required" for="fieldOfStudy">Field of Study or Major:</label>
+        <input type="text" id="fieldOfStudy" name="fieldOfStudy" placeholder="Enter your field of study or major" required>
+
+        <label class="required" for="currentStudent">Are you currently a student?</label>
+        <div>
+            <input type="radio" id="yes" name="currentStudent" value="Yes" required>
+            <label for="yes">Yes</label>
+        </div>
+        <div>
+            <input type="radio" id="no" name="currentStudent" value="No" required>
+            <label for="no">No</label>
+        </div>
+
+        <label class="required" for="academicCareerGoals">Academic or Career Goals:</label>
+        <input type="text" id="academicCareerGoals" name="academicCareerGoals" placeholder="Enter your academic or career goals" required>
+
+        <label class="required" for="interestAreas">Subjects or Areas of Study that Interest You:</label>
+        <input type="text" id="interestAreas" name="interestAreas" placeholder="Enter subjects or areas of study" required>
+
+        <label for="certifications">Certifications or Additional Courses:</label>
+        <input type="text" id="certifications" name="certifications" placeholder="Enter certifications or additional courses">
+
+        <label for="extracurricularActivities">Extracurricular Activities or Clubs:</label>
+        <input type="text" id="extracurricularActivities" name="extracurricularActivities" placeholder="Enter extracurricular activities or clubs">
+
+        <label for="favoriteAchievement">Favorite Academic Achievement or Project:</label>
+        <input type="text" id="favoriteAchievement" name="favoriteAchievement" placeholder="Enter your favorite academic achievement or project">
+
+        <label for="challengesQuestions">Challenges or Questions in Education:</label>
+        <input type="text" id="challengesQuestions" name="challengesQuestions" placeholder="Enter any challenges or questions you have">
+
+        <label class="required" for="bunkedClasses">Did you ever "bunk" or skip classes?</label>
+        <div>
+            <input type="radio" id="yes" name="bunkedClasses" value="Yes" required>
+            <label for="yes">Yes</label>
+        </div>
+        <div>
+            <input type="radio" id="no" name="bunkedClasses" value="No" required>
+            <label for="no">No</label>
+        </div>
+
+        <label for="memorableExperience">Most Memorable Bunking Experience:</label>
+        <input type="text" id="memorableExperience" name="memorableExperience" placeholder="Share your most memorable bunking experience">
+
+        <label for="balanceImportance">Balancing Fun and Attendance:</label>
+        <input type="text" id="balanceImportance" name="balanceImportance" placeholder="Share your thoughts on balancing fun and attendance">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    // JavaScript code to handle form submission and data storage
+    document.getElementById("userEducationDetailsForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form values
+        var educationDetails = {
+            educationLevel: document.getElementById("educationLevel").value,
+            schoolName: document.getElementById("schoolName").value,
+            fieldOfStudy: document.getElementById("fieldOfStudy").value,
+            currentStudent: document.querySelector('input[name="currentStudent"]:checked').value,
+            academicCareerGoals: document.getElementById("academicCareerGoals").value,
+            interestAreas: document.getElementById("interestAreas").value,
+            certifications: document.getElementById("certifications").value,
+            extracurricularActivities: document.getElementById("extracurricularActivities").value,
+            favoriteAchievement: document.getElementById("favoriteAchievement").value,
+            challengesQuestions: document.getElementById("challengesQuestions").value,
+            bunkedClasses: document.querySelector('input[name="bunkedClasses"]:checked').value,
+            memorableExperience: document.getElementById("memorableExperience").value,
+            balanceImportance: document.getElementById("balanceImportance").value
+        };
+
+        // Convert the object to JSON string
+        var educationDetailsJSON = JSON.stringify(educationDetails);
+
+        // Store the JSON string in local storage
+        localStorage.setItem("educationDetails", educationDetailsJSON);
+
+        // Redirect to the next page
+        window.location.href = "friends.html";
+    });
+</script>
+
+</body>
+</html>

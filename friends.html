@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friendship Details</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url('friends.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color:black;
+    }
+    .container {
+        width: 50%;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    }
+    label {
+        display: inline-block;
+        margin-top: 10px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: black;
+    }
+    label.required::after {
+        content: " *";
+        color: red; /* Red color for asterisk */
+    }
+    input[type="text"], select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="radio"] {
+        display: inline-block;
+        margin-right: 5px;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Friendship Details</h2>
+    <form id="friendshipDetailsForm">
+
+        <label for="bestFriend">Who's your best friend?</label>
+        <input type="text" id="bestFriend" name="bestFriend" placeholder="Enter your best friend's name">
+
+        <label class="required" for="friendCircle">Preferred Friend Circle:</label>
+        <div>
+            <input type="radio" id="small" name="friendCircle" value="small" required>
+            <label for="small">Small</label>
+        </div>
+        <div>
+            <input type="radio" id="large" name="friendCircle" value="large" required>
+            <label for="large">Large</label>
+        </div>
+
+        <label class="required" for="friendActivities">Activities with Friends:</label>
+        <select id="friendActivities" name="friendActivities" multiple required>
+            <option value="Watch Movie">Watch Movie</option>
+            <option value="Play Games">Play Games</option>
+            <option value="Go Hiking">Go Hiking</option>
+            <option value="Travelling">Travelling</option>
+            <option value="Bike Ride">Bike Ride</option>
+            <option value="Go Shopping">Go Shopping</option>
+            <option value="Visit New Resto">Visit New Resto</option>
+        </select>
+        
+
+        <label for="friendQualities">Qualities in a Friend:</label>
+        <input type="text" id="friendQualities" name="friendQualities" placeholder="Qualities you value in a friend">
+
+        <label class="required" for="friendConnections">Friend Connections:</label>
+        <input type="text" id="friendConnections" name="friendConnections" placeholder="Known friends for a long time or enjoy making new connections?" required>
+
+        <label for="memorableExperiences">Memorable Experiences with Friends:</label>
+        <input type="text" id="memorableExperiences" name="memorableExperiences" placeholder="Share memorable experiences or adventures">
+
+        <label for="friendSupport">Supporting Friends:</label>
+        <input type="text" id="friendSupport" name="friendSupport" placeholder="Ways you support or celebrate your friends">
+
+        <label class="required" for="stayInTouch">Staying in Touch with Friends:</label>
+        <input type="text" id="stayInTouch" name="stayInTouch" placeholder="Preferred methods to stay in touch" required>
+
+        <label for="upcomingEvents">Upcoming Events with Friends:</label>
+        <input type="text" id="upcomingEvents" name="upcomingEvents" placeholder="Any upcoming events or gatherings you're looking forward to">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    // JavaScript code to handle form submission and data storage
+    document.getElementById("friendshipDetailsForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get form values
+    var friendshipDetails = {
+        bestFriend: document.getElementById("bestFriend").value,
+        friendCircle: document.querySelector('input[name="friendCircle"]:checked').value,
+        friendActivities: getSelectedOptions("friendActivities"),
+        friendQualities: document.getElementById("friendQualities").value,
+        friendConnections: document.getElementById("friendConnections").value,
+        memorableExperiences: document.getElementById("memorableExperiences").value,
+        friendSupport: document.getElementById("friendSupport").value,
+        stayInTouch: document.getElementById("stayInTouch").value,
+        upcomingEvents: document.getElementById("upcomingEvents").value
+    };
+
+    // Convert the object to JSON string
+    var friendshipDetailsJSON = JSON.stringify(friendshipDetails);
+
+    // Store the JSON string in local storage
+    localStorage.setItem("friendshipDetails", friendshipDetailsJSON);
+
+    // Redirect to the next page
+    window.location.href = "socialMedia.html";
+});
+
+// Function to get selected options from a dropdown
+function getSelectedOptions(id) {
+    var select = document.getElementById(id);
+    var selectedOptions = [];
+    for (var i = 0; i < select.options.length; i++) {
+        if (select.options[i].selected) {
+            selectedOptions.push(select.options[i].value);
+        }
+    }
+    return selectedOptions;
+}
+
+</script>
+
+</body>
+</html>

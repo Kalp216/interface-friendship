@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Page</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+
+<h1>Summary of Details</h1>
+
+<div class="summary-section">
+    <h2>User Details</h2>
+    <p><strong>Full Name:</strong> <span id="fullName"></span></p>
+    <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+    <p><strong>Age:</strong> <span id="age"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <button onclick="editUserDetails()">Edit</button>
+</div>
+
+<div class="summary-section">
+    <h2>Interest Details</h2>
+    <p><strong>Common Activities:</strong> <span id="commonActivities"></span></p>
+    <button onclick="editInterestDetails()">Edit</button>
+</div>
+
+<!-- Repeat similar sections for other details (education, friendship, social media) -->
+
+<script>
+    // JavaScript code to retrieve data from local storage and populate summary page
+
+    // Retrieve user details from local storage
+    var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    if (userDetails) {
+        document.getElementById("fullName").innerText = userDetails.fullName;
+        document.getElementById("dob").innerText = userDetails.dateOfBirth;
+        document.getElementById("age").innerText = userDetails.age;
+        document.getElementById("email").innerText = userDetails.email;
+    }
+
+    // Retrieve interest details from local storage
+    var interestDetails = JSON.parse(localStorage.getItem("interestDetails"));
+    if (interestDetails) {
+        document.getElementById("commonActivities").innerText = interestDetails.commonActivities;
+    }
+
+    // Function to edit user details
+    function editUserDetails() {
+        // Redirect to user details page to edit the details
+        window.location.href = "about.html";
+    }
+
+    // Function to edit interest details
+    function editInterestDetails() {
+        // Redirect to interest details page to edit the details
+        window.location.href = "interest.html";
+    }
+
+    // Similar functions for editing other details
+</script>
+
+</body>
+</html>

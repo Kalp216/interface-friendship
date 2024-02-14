@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+</head>
+<body>
+    <div id="content">
+        <!-- Content will be displayed here -->
+    </div>
+
+    <script>
+        // Retrieve and display User Details
+        var userDetailsJSON = localStorage.getItem("userDetails");
+        var userDetails = JSON.parse(userDetailsJSON);
+
+        // Display full name as the heading
+        var fullName = userDetails ? userDetails.fullName : "User";
+        var heading = document.createElement("h1");
+        heading.textContent = fullName + "'s Details";
+        document.getElementById("content").appendChild(heading);
+
+        // Function to display details on the webpage
+        function displayDetails(containerId, title, details) {
+            var container = document.getElementById(containerId);
+            var detailsDiv = document.createElement("div");
+            detailsDiv.innerHTML = "<h2>" + title + "</h2>";
+
+            if (details) {
+                var detailsList = document.createElement("ul");
+                for (var key in details) {
+                    if (details.hasOwnProperty(key)) {
+                        var listItem = document.createElement("li");
+                        listItem.textContent = key + ": " + details[key];
+                        detailsList.appendChild(listItem);
+                    }
+                }
+                detailsDiv.appendChild(detailsList);
+            } else {
+                detailsDiv.innerHTML = "<p>No details available.</p>";
+            }
+
+            container.appendChild(detailsDiv);
+        }
+
+        // Display other details
+        displayDetails("content", "User Details", userDetails);
+        displayDetails("content", "Interest Details", JSON.parse(localStorage.getItem("interestDetails")));
+        displayDetails("content", "Education Details", JSON.parse(localStorage.getItem("educationDetails")));
+        displayDetails("content", "Friendship Details", JSON.parse(localStorage.getItem("friendshipDetails")));
+        displayDetails("content", "Social Media Details", JSON.parse(localStorage.getItem("socialMediaDetails")));
+    </script>
+</body>
+</html>

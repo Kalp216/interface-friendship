@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interest Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('interest.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color:black;
+        }
+        .container {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: black;
+        }
+
+        label.required::after {
+            content: " *";
+            color: red; /* Red color for asterisk */
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            margin: 12px;
+        }
+
+        .checkbox-group label {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Interest Detail</h2>
+    <form id="interestDetailsForm">
+
+        <label class="required" for="favoriteMusic">Favorite Type of Music or Artist:</label>
+        <input type="text" id="favoriteMusic" name="favoriteMusic" placeholder="Enter your favorite music or artist" required>
+
+        <label for="favoriteMovieGenre">Favorite Movie or TV Show Genres:</label>
+        <input type="text" id="favoriteMovieGenre" name="favoriteMovieGenre" placeholder="Enter your favorite movie or TV show genres">
+
+        <label for="favoriteBook">Favorite Book or Author:</label>
+        <input type="text" id="favoriteBook" name="favoriteBook" placeholder="Enter your favorite book or author">
+
+        <label class="required" for="sportsActivities">Sports or Physical Activities:</label>
+        <input type="text" id="sportsActivities" name="sportsActivities" placeholder="Enter your sports or physical activities" required>
+
+        <label class="required" for="favoriteTravelDestination">Favorite Travel Destination or Type of Vacation:</label>
+        <input type="text" id="favoriteTravelDestination" name="favoriteTravelDestination" placeholder="Enter your favorite travel destination or type of vacation" required>
+
+        <label class="required" for="technologyInterest">Interest in Technology, Gaming, or Gadgets:</label>
+        <input type="text" id="technologyInterest" name="technologyInterest" placeholder="Enter your interest in technology, gaming, or gadgets" required>
+
+        <label for="mediaAccounts">Favorite Blogs, Podcasts, or Social Media Accounts:</label>
+        <input type="text" id="mediaAccounts" name="mediaAccounts" placeholder="Enter your favorite blogs, podcasts, or social media accounts">
+
+        <label for="passionateTopics">Passionate Topics or Causes:</label>
+        <input type="text" id="passionateTopics" name="passionateTopics" placeholder="Enter your passionate topics or causes">
+
+        <div class="checkbox-group">
+            <label class="required">Favorite Type of Food:</label><br>
+            <input type="checkbox" name="favoriteFood" value="Japanese"> Japanese
+            <input type="checkbox" name="favoriteFood" value="Chinese"> Chinese
+            <input type="checkbox" name="favoriteFood" value="Italian"> Italian
+            <br>
+            <input type="checkbox" name="favoriteFood" value="Mexican"> Mexican
+            <input type="checkbox" name="favoriteFood" value="Korean"> Korean
+            <input type="checkbox" name="favoriteFood" value="Indian"> Indian
+        </div>
+
+        <label for="favoriteMovieBook">Favorite Movie or Book:</label>
+        <input type="text" id="favoriteMovieBook" name="favoriteMovieBook" placeholder="Enter your favorite movie or book">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    // JavaScript code to handle form submission and data storage
+    document.getElementById("interestDetailsForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form values
+        var interestDetails = {
+            favoriteMusic: document.getElementById("favoriteMusic").value,
+            favoriteMovieGenre: document.getElementById("favoriteMovieGenre").value,
+            favoriteBook: document.getElementById("favoriteBook").value,
+            sportsActivities: document.getElementById("sportsActivities").value,
+            favoriteTravelDestination: document.getElementById("favoriteTravelDestination").value,
+            technologyInterest: document.getElementById("technologyInterest").value,
+            mediaAccounts: document.getElementById("mediaAccounts").value,
+            passionateTopics: document.getElementById("passionateTopics").value,
+            favoriteFood: getCheckboxValues("favoriteFood"),
+            favoriteMovieBook: document.getElementById("favoriteMovieBook").value
+        };
+
+        // Convert the object to JSON string
+        var interestDetailsJSON = JSON.stringify(interestDetails);
+
+        // Store the JSON string in local storage
+        localStorage.setItem("interestDetails", interestDetailsJSON);
+
+        // Redirect to the next page
+        window.location.href = "education.html";
+    });
+
+    // Function to get values of checked checkboxes
+    function getCheckboxValues(checkboxName) {
+        var checkboxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked');
+        var values = [];
+        checkboxes.forEach(function(checkbox) {
+            values.push(checkbox.value);
+        });
+        return values.join(", ");
+    }
+</script>
+
+</body>
+</html>

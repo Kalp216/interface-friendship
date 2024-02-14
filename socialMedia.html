@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Details</title>
+<style>
+     body {
+            font-family: Arial, sans-serif;
+            background-image: url('media.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color:black;
+        }
+    .container {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        }
+    label {
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: black;
+        }
+
+label.required::after {
+            content: " *";
+            color: red; /* Red color for asterisk */
+        }
+
+    input[type="text"], select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+input[type="radio"] {
+        display: inline-block;
+	margin-right: 5px;
+	
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Social Media Details</h2>
+    <form id="socialMediaDetailsForm">
+
+        <label class="required" for="socialMediaPlatforms">Which social media platforms do you use the most?</label>
+        <select id="socialMediaPlatforms" name="socialMediaPlatforms" required>
+            <option value="" disabled selected>Select most used platform</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Snapchat">Snapchat</option>
+            <option value="X">X</option>
+	    <option value="Pinterest">Pinterest</option>
+	    <option value="other">other</option>
+        </select>
+
+        <label class="required" for="contentPreference">What kind of content do you enjoy sharing on social media?</label>
+        <input type="text" id="contentPreference" name="contentPreference" placeholder="Describe your preferred content" required>
+
+        <label for="socialMediaActivity">Are you more of a lurker or an active participant on social media?</label>
+        <div>
+            <input type="radio" id="lurker" name="socialMediaActivity" value="lurker" required>
+            <label for="lurker">Lurker</label>
+        </div>
+        <div>
+            <input type="radio" id="active" name="socialMediaActivity" value="active" required>
+            <label for="active">Active</label>
+        </div>
+
+        <label for="negativeExperiences">How do you handle negative experiences or conflicts on social media?</label>
+        <input type="text" id="negativeExperiences" name="negativeExperiences" placeholder="Share your approach">
+
+        <label class="required" for="influencersCelebrities">Do you follow any influencers or celebrities for inspiration or entertainment?</label>
+        <input type="text" id="influencersCelebrities" name="influencersCelebrities" placeholder="Mention any influencers or celebrities" required>
+
+        <label class="required" for="impactOnLife">How has social media impacted your life, positively or negatively?</label>
+        <input type="text" id="impactOnLife" name="impactOnLife" placeholder="Describe the impact" required>
+
+        <label for="createOwnContent">Do you create and share your own content on social media?</label>
+        <div>
+            <input type="radio" id="yes" name="createOwnContent" value="Yes">
+            <label for="yes">Yes</label>
+        </div>
+        <div>
+            <input type="radio" id="no" name="createOwnContent" value="No">
+            <label for="no">No</label>
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    // JavaScript code to handle form submission and data storage
+    document.getElementById("socialMediaDetailsForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form values
+        var socialMediaDetails = {
+            socialMediaPlatforms: document.getElementById("socialMediaPlatforms").value,
+            contentPreference: document.getElementById("contentPreference").value,
+            socialMediaActivity: document.querySelector('input[name="socialMediaActivity"]:checked').value,
+            negativeExperiences: document.getElementById("negativeExperiences").value,
+            influencersCelebrities: document.getElementById("influencersCelebrities").value,
+            impactOnLife: document.getElementById("impactOnLife").value,
+            createOwnContent: document.querySelector('input[name="createOwnContent"]:checked').value
+        };
+
+        // Convert the object to JSON string
+        var socialMediaDetailsJSON = JSON.stringify(socialMediaDetails);
+
+        // Store the JSON string in local storage
+        localStorage.setItem("socialMediaDetails", socialMediaDetailsJSON);
+
+        // Redirect to the next page
+         window.location.href = "details.html";
+    });
+</script>
+
+</body>
+</html>
